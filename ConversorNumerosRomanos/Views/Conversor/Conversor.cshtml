@@ -1,0 +1,93 @@
+﻿@model ConversorNumerosRomanos.Entidades.Conversao;
+
+@{
+    ViewData["Title"] = "Conversor";
+
+    ViewData["Valor"] = "";
+    ViewData["Resultado"] = "";
+
+}
+@*<div class="d-flex justify-content-center mb-2">
+    <h1>Conversor Para Numeros Romanos/Arábicos</h1>
+</div>
+
+<div class="d-flex justify-content-center mt-2">
+    <div class="">
+
+        <div class="mb-3">
+            <h4>Valor</h4>
+            <input type="text" name="NumberA" value="@viewBagArabic">
+        </div>
+
+        <div class="mb-3">
+            <h4>Resultado</h4>
+            <input type="text" name="NumberR" value="@viewBagRomain">
+        </div>
+
+        <button >Converter</button>
+
+    </div>
+
+</div>*@
+
+<div class="text-center">
+    <h1 class="display-4" style="background-color:aliceblue;border-block-color:aquamarine">Conversor de números romanos</h1>
+    <br />
+    <div class="col-md-12 text-center" style="margin-bottom:10%;">
+        @using(Html.BeginForm("Create", "Conversor", FormMethod.Post))
+        {
+            <div>
+                @Html.RadioButton("romano","True", true, new { id = "radioTexto"}) Converter números romanos para arábico.<br />
+                @Html.RadioButton("romano","False", new { id = "radioNumero"})    Converter números arábicos para romanos.
+            </div>
+            <div style="border:solid; margin-top:2%;">
+                <div style="margin-top:3%;">
+                    <label>Valor</label><br>
+                    @*@Html.TextBox("Valor")*@
+                    @*<input type="text" value="@(ViewData["Valor"])" />*@
+                    @Html.TextBoxFor(m => m.VAlor, new { id = "campoUnicoInput"})
+                </div>
+                <div style="margin-top:2%;">
+                    <label>Resultado</label><br>
+                    @*@Html.TextBox("Resultado")*@
+                    @*<input type="text" value="@(ViewData["Resultado"])" />*@
+                    @Html.DisplayTextFor(m => m.Resultado)
+                </div>
+                <div style="margin:2%;">
+                    <input type="submit" value="Converter" class="btn btn-default" id="btnConverter" />
+                </div>
+            </div>
+        }
+
+        <script>
+            var radioTexto = document.getElementById('radioTexto');
+            var radioNumero = document.getElementById('radioNumero');
+            var campoUnicoInput = document.getElementById('campoUnicoInput');
+
+            radioTexto.addEventListener('change', function () {
+                campoUnicoInput.value = '';
+                campoUnicoInput.setAttribute('pattern', '[A-Za-z]+');
+                campoUnicoInput.setAttribute('title', 'Somente texto é permitido');
+            });
+
+            radioNumero.addEventListener('change', function () {
+                campoUnicoInput.value = '';
+                campoUnicoInput.setAttribute('pattern', '[0-9]+');
+                campoUnicoInput.setAttribute('title', 'Somente números são permitidos');
+            });
+
+            campoUnicoInput.addEventListener('input', function () {
+                if (radioTexto.checked) {
+                    campoUnicoInput.value = campoUnicoInput.value.replace(/[^A-Za-z]/g, '');
+                } else if (radioNumero.checked) {
+                    campoUnicoInput.value = campoUnicoInput.value.replace(/\D/g, '');
+                }
+            });
+
+        </script>
+
+    </div>
+</div>
+
+
+
